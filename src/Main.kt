@@ -11,7 +11,10 @@
  * =====================================================================
  */
 
-val squares = mutableListOf<String?>()
+var squares = mutableListOf<String?>()
+var p1Name: String = ""
+var p2Name: String = ""
+var playerTurn: String = ""
 
 fun clearScreen() {
     for (i in 0..100) {
@@ -36,19 +39,8 @@ fun gameName(){
 }
 
 fun main() {
-
-
-    while (true) {
-
-        val action = intro()
-
-        when (action) {
-            'P' -> GetPlayerNames()
-            'H' -> howToPlay()
-        }
-        break
-
-    }
+    intro()
+    GetPlayerNames()
     createCells()
     addCounters()
     showsquares()
@@ -120,33 +112,25 @@ fun showsquares() {
     println("┘")
 }
 
-fun intro(): Char {
+fun intro() {
 
     gameName()
     println("Welcome to Pinned")
-    println("[P]lay")
-    println("[H]ow to play")
     println()
 
-    print("Choice: ")
+    print("Do you want instructions [y/n]: ")
     println()
 
     val input = readlnOrNull()?.uppercase()
 
-    if (input.isNullOrEmpty()) {
-        println("No input entered.")
-        return ' '
-    }
+    if (input.isNullOrEmpty() || input != "Y") return
 
-    return input[0]
-
+    howToPlay()
 
 }
     fun GetPlayerNames(){
-        clearScreen()
-        gameName()
-        print("What is player ones name? ")
-        val p1Name = readln()
+        println("What is player ones name? ")
+        p1Name = readln()
 
         print("What is player twos name? ")
         val p2Name = readln()
@@ -181,29 +165,40 @@ println("Pinned \uD83D\uDCCC\n" +
     println()
     println("Variant\n" +
         "Counters can slide either left or right (but still can't jump other counters)")
-
-    intro()
-
 }
 
 fun playerTurns() {
-    val playerTurn = ("")
+
 
 }
 
 
 fun game(){
+    print("What square would you like to move: ")
+    val cell1 = readlnOrNull()?.toIntOrNull()
 
-    while (true) {
-        clearScreen()
-        showsquares()
-        gameName()
+    print("Where would you like to move it to: ")
+    val cell2 = readlnOrNull()?.toIntOrNull()
 
-
-
-
+    if (cell1 == null || cell2 == null) {
+        println("Invalid number entered.")
+        return
     }
-    gamewin()
+
+    val index1 = cell1 - 1
+    val index2 = cell2 - 1
+
+    if (index1 in 0..15 && index2 in 0..15) {
+        val temp = squares[index1]
+        squares[index1] = squares[index2]
+        squares[index2] = temp
+    } else {
+        println("Invalid cell number.")
+    }
+    clearScreen()
+    showsquares()
+    playerTurns()
+    game()
 }
 
 fun gamewin (){

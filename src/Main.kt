@@ -19,28 +19,40 @@ fun clearScreen() {
     }
 }
 
+fun gameName(){
+    println()
+    println(
+        "                                           \n" +
+                " __________________________________________\n" +
+                "/_____/_____/_____/_____/_____/_____/_____/\n" +
+                "__________.__                         .___ \n" +
+                "\\______   \\__| ____   ____   ____   __| _/ \n" +
+                " |     ___/  |/    \\ /    \\_/ __ \\ / __ |  \n" +
+                " |    |   |  |   |  \\   |  \\  ___// /_/ |  \n" +
+                " |____|   |__|___|  /___|  /\\___  >____ |  \n" +
+                "                  \\/     \\/     \\/     \\/  "
+    )
+    println()
+}
+
 fun main() {
-    createCells()
+
 
     while (true) {
 
-        val action = getUserAction()
+        val action = intro()
 
         when (action) {
             'P' -> GetPlayerNames()
-            'H' -> HowToPlay()
-            'Q' -> break
+            'H' -> howToPlay()
         }
+        break
 
-        showCells()
     }
-
-    GetPlayerNames()
     createCells()
     addCounters()
-    showCells()
+    showsquares()
     game()
-
 }
 
 
@@ -85,10 +97,11 @@ fun addCounters() {
             squares[black] = "◯"
             break
         }
+        if (squares[black] == "-1") {gamewin()}
     }
 }
 
-fun showCells() {
+fun showsquares() {
     for (i in 1..squares.size) {
         print("Square $i  ".padEnd(length = 11))
     }
@@ -107,26 +120,16 @@ fun showCells() {
     println("┘")
 }
 
-fun getUserAction(): Char {
-    println(
-        "                                           \n" +
-                " __________________________________________\n" +
-                "/_____/_____/_____/_____/_____/_____/_____/\n" +
-                "__________.__                         .___ \n" +
-                "\\______   \\__| ____   ____   ____   __| _/ \n" +
-                " |     ___/  |/    \\ /    \\_/ __ \\ / __ |  \n" +
-                " |    |   |  |   |  \\   |  \\  ___// /_/ |  \n" +
-                " |____|   |__|___|  /___|  /\\___  >____ |  \n" +
-                "                  \\/     \\/     \\/     \\/  "
-    )
+fun intro(): Char {
 
+    gameName()
     println("Welcome to Pinned")
     println("[P]lay")
     println("[H]ow to play")
-    println("[Q]uit")
     println()
 
     print("Choice: ")
+    println()
 
     val input = readlnOrNull()?.uppercase()
 
@@ -141,49 +144,74 @@ fun getUserAction(): Char {
 }
     fun GetPlayerNames(){
         clearScreen()
-        println(
-            "                                           \n" +
-                    " __________________________________________\n" +
-                    "/_____/_____/_____/_____/_____/_____/_____/\n" +
-                    "__________.__                         .___ \n" +
-                    "\\______   \\__| ____   ____   ____   __| _/ \n" +
-                    " |     ___/  |/    \\ /    \\_/ __ \\ / __ |  \n" +
-                    " |    |   |  |   |  \\   |  \\  ___// /_/ |  \n" +
-                    " |____|   |__|___|  /___|  /\\___  >____ |  \n" +
-                    "                  \\/     \\/     \\/     \\/  "
-        )
+        gameName()
         print("What is player ones name? ")
-        val P1Name = readln()
+        val p1Name = readln()
 
         print("What is player twos name? ")
-        val P2Name = readln()
+        val p2Name = readln()
 
         clearScreen()
-        print("Hello $P1Name and $P2Name")
+        print("Hello $p1Name and $p2Name")
         println()
+
 }
+
+
+
+fun howToPlay(){
+    clearScreen()
+println("Pinned \uD83D\uDCCC\n" +
+        "Game Setup\n" +
+        ""+
+        "A row of 16 squares, numbered 1 to 16 from left to right\n" +
+        "5 counters (total) are placed randomly on the board - 4 white and 1 black\n" +
+        "Decide who goes first\n")
+        println()
+       println("Gameplay")
+
+        println("Players take turns - You may not skip your turn\n" +
+        "On your turn you must do exactly one of the following:\n" +
+        "Slide any counter (black or white) any number of squares to the left, as long as no other counter is in the way and the destination square is empty, or...\n" +
+        "Remove the counter on square 1 (only if a counter is there)\n" )
+    println()
+    println("Win Condition")
+    print("The player who removes the black counter from square 1 wins\n")
+    println()
+    println()
+    println("Variant\n" +
+        "Counters can slide either left or right (but still can't jump other counters)")
+
+    intro()
+
+}
+
+fun playerTurns() {
+    val playerTurn = ("")
+
+}
+
 
 fun game(){
 
+    while (true) {
+        clearScreen()
+        showsquares()
+        gameName()
+
+
+
+
+    }
+    gamewin()
 }
 
-fun HowToPlay(){
-println("Pinned \uD83D\uDCCC\n" +
-        "Game Setup\n" +
-        "A row of 16 squares, numbered 1 to 16 from left to right\n" +
-        "5 counters (total) are placed randomly on the board - 4 white and 1 black\n" +
-        "Decide who goes first\n" +
-        "Gameplay\n" +
-        "Players take turns - You may not skip your turn\n" +
-        "On your turn you must do exactly one of the following:\n" +
-        "Slide any counter (black or white) any number of squares to the left, as long as no other counter is in the way and the destination square is empty, or...\n" +
-        "Remove the counter on square 1 (only if a counter is there)\n" +
-        "Win Condition\n" +
-        "The player who removes the black counter from square 1 wins\n" +
-        "Variant\n" +
-        "Counters can slide either left or right (but still can't jump other counters)")
+fun gamewin (){
+    clearScreen()
+    gameName()
+    println("Player name won")
 
-
+    println("Would you like to play again? ")
 }
 
 

@@ -168,12 +168,20 @@ println("Pinned \uD83D\uDCCC\n" +
 }
 
 fun playerTurns() {
-
+    playerTurn = p1Name
+    p1Name = p2Name
+    p2Name = playerTurn
 
 }
 
 
 fun game(){
+
+    println("Its $playerTurn's turn")
+
+
+    //Make it so player can choose what to do. R = Remove if on 1. or player can move square if press [M]ove
+
     print("What square would you like to move: ")
     val cell1 = readlnOrNull()?.toIntOrNull()
 
@@ -196,7 +204,6 @@ fun game(){
         println("Invalid cell number.")
     }
     clearScreen()
-    showsquares()
     playerTurns()
     game()
 }
@@ -209,5 +216,9 @@ fun gamewin (){
     println("Would you like to play again? ")
 }
 
+fun remove (){
+    val index = 0
+    squares[index] = "..."
+}
 
 

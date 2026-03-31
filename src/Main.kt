@@ -192,10 +192,10 @@ fun game(){
         }
 
 
-        // Check for win
-//        if (??????) {
-//            break
-//        }
+
+
+
+    }
 
         clearScreen()
 
@@ -204,7 +204,9 @@ fun game(){
       //  p1Name = p2Name
       //  p2Name = playerTurn
 
-    }
+
+
+    //}
 }
 
 fun gamewin (){
@@ -218,6 +220,10 @@ fun gamewin (){
 fun remove (){
     val index = 0
     squares[index] = "..."
+    if (squares[index] == "◯") {
+        gamewin()
+    }
+
 }
 
 fun move (){

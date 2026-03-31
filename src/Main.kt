@@ -14,7 +14,7 @@
 var squares = mutableListOf<String?>()
 var p1Name: String = ""
 var p2Name: String = ""
-var playerTurn: String = ""
+var game: String = ""
 
 fun clearScreen() {
     for (i in 0..100) {
@@ -58,38 +58,38 @@ fun addCounters() {
     while (true) {
         val white1 = (0..15).random()
         if (squares[white1] == "...") {
-            squares[white1] = "⬤"
+            squares[white1] = "●"
             break
         }
     }
     while (true) {
         val white2 = (0..15).random()
         if (squares[white2] == "...") {
-            squares[white2] = "⬤"
+            squares[white2] = "●"
             break
         }
     }
     while (true) {
         val white3 = (0..15).random()
         if (squares[white3] == "...") {
-            squares[white3] = "⬤"
+            squares[white3] = "●"
             break
         }
     }
     while (true) {
         val white4 = (0..15).random()
         if (squares[white4] == "...") {
-            squares[white4] = "⬤"
+            squares[white4] = "●"
             break
         }
     }
     while (true) {
-        val black = (0..15).random()
+        val black = (5..15).random()
         if (squares[black] == "...") {
             squares[black] = "◯"
             break
         }
-        if (squares[black] == "-1") {gamewin()}
+//        if (squares[black] == "-1") {gamewin()}
     }
 }
 
@@ -133,7 +133,7 @@ fun intro() {
         p1Name = readln()
 
         print("What is player twos name? ")
-        val p2Name = readln()
+        p2Name = readln()
 
         clearScreen()
         print("Hello $p1Name and $p2Name")
@@ -167,21 +167,60 @@ println("Pinned \uD83D\uDCCC\n" +
         "Counters can slide either left or right (but still can't jump other counters)")
 }
 
-fun playerTurns() {
-    playerTurn = p1Name
-    p1Name = p2Name
-    p2Name = playerTurn
-
-}
+//fun playerTurns() {
+//    playerTurn = p1Name
+////    p1Name = p2Name
+////    p2Name = playerTurn
+//
+//}
 
 
 fun game(){
+    var playerTurn = p1Name
 
-    println("Its $playerTurn's turn")
+    while (true) {
+        showsquares()
+        println("Its $playerTurn's turn")
+        println("What would you like to do? ")
+        println("[M]ove")
+        println("[R]emove")
+        val choice = readlnOrNull()?.uppercase().toString()
+
+        when (choice) {
+            "M" -> move()
+            "R" -> remove()
+        }
 
 
-    //Make it so player can choose what to do. R = Remove if on 1. or player can move square if press [M]ove
+        // Check for win
+//        if (??????) {
+//            break
+//        }
 
+        clearScreen()
+
+        // Switch playerTurn from p1name to p2name or vice versa
+       // playerTurn = p1Name
+      //  p1Name = p2Name
+      //  p2Name = playerTurn
+
+    }
+}
+
+fun gamewin (){
+    clearScreen()
+    gameName()
+    println("Player name won")
+
+    println("Would you like to play again? ")
+}
+
+fun remove (){
+    val index = 0
+    squares[index] = "..."
+}
+
+fun move (){
     print("What square would you like to move: ")
     val cell1 = readlnOrNull()?.toIntOrNull()
 
@@ -203,22 +242,6 @@ fun game(){
     } else {
         println("Invalid cell number.")
     }
-    clearScreen()
-    playerTurns()
-    game()
+
 }
-
-fun gamewin (){
-    clearScreen()
-    gameName()
-    println("Player name won")
-
-    println("Would you like to play again? ")
-}
-
-fun remove (){
-    val index = 0
-    squares[index] = "..."
-}
-
 

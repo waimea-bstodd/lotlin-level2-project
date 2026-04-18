@@ -9,7 +9,11 @@
  * Notes:
  * PROJECT NOTES HERE
  * =====================================================================
+Game can be played till the end. Needs more polishing and some things with clear screen needs to be fixed/improved
+
+
  */
+
 
 var squares = mutableListOf<String?>()
 var p1Name: String = ""
@@ -89,7 +93,6 @@ fun addCounters() {
             squares[black] = "◯"
             break
         }
-//        if (squares[black] == "-1") {gamewin()}
     }
 }
 
@@ -141,8 +144,6 @@ fun intro() {
 
 }
 
-
-
 fun howToPlay(){
     clearScreen()
 println("Pinned \uD83D\uDCCC\n" +
@@ -167,87 +168,103 @@ println("Pinned \uD83D\uDCCC\n" +
         "Counters can slide either left or right (but still can't jump other counters)")
 }
 
-//fun playerTurns() {
-//    playerTurn = p1Name
-////    p1Name = p2Name
-////    p2Name = playerTurn
-//
-//}
-
 
 fun game(){
     var playerTurn = p1Name
 
     while (true) {
+        clearScreen()
         showsquares()
-        println("Its $playerTurn's turn")
-        println("What would you like to do? ")
-        println("[M]ove")
-        println("[R]emove")
-        val choice = readlnOrNull()?.uppercase().toString()
+        println("\nIt's $playerTurn's turn")
+        println("[M]ove  [R]emove")
+
+        val choice = readlnOrNull()?.uppercase()
+
+        var validTurn = false
 
         when (choice) {
-            "M" -> move()
-            "R" -> remove()
+            "M" -> {
+                move()
+                validTurn = true
+            }
+            "R" -> {
+                val win = remove(playerTurn)
+                if (win) return
+                validTurn = true
+            }
+            else -> println("Invalid choice")
         }
 
-
-
-
-
+        if (validTurn) {
+            playerTurn = if (playerTurn == p1Name) p2Name else p1Name
+        }
     }
-
-        clearScreen()
-
-        // Switch playerTurn from p1name to p2name or vice versa
-       // playerTurn = p1Name
-      //  p1Name = p2Name
-      //  p2Name = playerTurn
-
-
-
-    //}
 }
 
-fun gamewin (){
+fun gamewin (player: String){
     clearScreen()
     gameName()
-    println("Player name won")
+    println("$player won")
 
-    println("Would you like to play again? ")
+    println("Game Over")
 }
 
-fun remove (){
+fun remove (playerturn: String): Boolean {
     val index = 0
-    squares[index] = "..."
-    if (squares[index] == "◯") {
-        gamewin()
+    if (squares[index] == "...") {
+        println("There is nothing on square 1 to remove")
+        return false
     }
 
+    if (squares[index] == "◯") {
+        squares[index] = "..."
+        gamewin(playerturn)
+        return true
+    }
+    squares[index] = "..."
+    return false
 }
 
 fun move (){
-    print("What square would you like to move: ")
-    val cell1 = readlnOrNull()?.toIntOrNull()
+    print("Pick square to move: ")
+    val from = readlnOrNull()?.toIntOrNull()
 
     print("Where would you like to move it to: ")
-    val cell2 = readlnOrNull()?.toIntOrNull()
+    val to = readlnOrNull()?.toIntOrNull()
 
-    if (cell1 == null || cell2 == null) {
-        println("Invalid number entered.")
+    if (from == null || to == null) {
+        println("Invalid square")
         return
     }
 
-    val index1 = cell1 - 1
-    val index2 = cell2 - 1
+    val start = from - 1
+    val end = to - 1
 
-    if (index1 in 0..15 && index2 in 0..15) {
-        val temp = squares[index1]
-        squares[index1] = squares[index2]
-        squares[index2] = temp
-    } else {
-        println("Invalid cell number.")
+    if (start !in 0..15 || end !in 0..15) {
+        println("Invalid squares")
+        return
     }
 
-}
+    if (squares[start] == "...") {
+        println("Nothing there")
+        return
+    }
 
+    if (squares[end] != "...") {
+        println("Space not empty")
+        return
+    }
+
+    val step = if (end > start) 1 else -1
+
+    var i = start + step
+    while (i != end) {
+        if (squares[i] != "...") {
+            println("Cannot jump over pieces")
+            return
+        }
+        i += step
+    }
+    squares[end] = squares[start]
+    squares[start] = "..."
+}

@@ -29,15 +29,15 @@ fun clearScreen() {
 fun gameName(){
     println()
     println(
-        "                                           \n" +
-                " __________________________________________\n" +
-                "/_____/_____/_____/_____/_____/_____/_____/\n" +
-                "__________.__                         .___ \n" +
-                "\\______   \\__| ____   ____   ____   __| _/ \n" +
-                " |     ___/  |/    \\ /    \\_/ __ \\ / __ |  \n" +
-                " |    |   |  |   |  \\   |  \\  ___// /_/ |  \n" +
-                " |____|   |__|___|  /___|  /\\___  >____ |  \n" +
-                "                  \\/     \\/     \\/     \\/  "
+        "                                           \n" .cyan()+
+                " __________________________________________\n" .blue()+
+                "/_____/_____/_____/_____/_____/_____/_____/\n" .blue()+
+                "__________.__                         .___ \n" .cyan()+
+                "\\______   \\__| ____   ____   ____   __| _/ \n" .blue()+
+                " |     ___/  |/    \\ /    \\_/ __ \\ / __ |  \n" .cyan()+
+                " |    |   |  |   |  \\   |  \\  ___// /_/ |  \n" .blue()+
+                " |____|   |__|___|  /___|  /\\___  >____ |  \n".cyan() +
+                "                  \\/     \\/     \\/     \\/  ".blue()
     )
     println()
 }
@@ -52,13 +52,13 @@ fun main() {
 }
 
 
-fun createCells() {
+fun createCells() { //This makes the gameboard and only puts in "..." so the addCounters function can easily pick where to put the dots
     for (i in 1..16){
         squares.add("...")
     }
 }
 
-fun addCounters() {
+fun addCounters() { //This expands on the createCells function and randomly selects where the dots should go. black dot can't go in square 1-5
     while (true) {
         val white1 = (0..15).random()
         if (squares[white1] == "...") {
@@ -96,22 +96,22 @@ fun addCounters() {
     }
 }
 
-fun showsquares() {
+fun showsquares() { //Makes the borders to make the game look better
     for (i in 1..squares.size) {
-        print("Square $i  ".padEnd(length = 11))
+        print("  $i  ".padEnd(length = 6))
     }
     println()
-    print("┌──────────")
-    print("┬──────────".repeat(squares.size-1))
+    print("┌─────")
+    print("┬─────".repeat(squares.size-1))
     println("┐")
 
     for (cell in squares){
-        print("│ ${cell?.padEnd(8)} ")
+        print("│ ${cell?.padEnd(3)} ")
     }
     print("│")
     println()
-    print("└──────────")
-    print("┴──────────".repeat(squares.size-1))
+    print("└─────")
+    print("┴─────".repeat(squares.size-1))
     println("┘")
 }
 
@@ -186,13 +186,13 @@ fun game(){
             "M" -> {
                 move()
                 validTurn = true
-            }
+            }                     //R = Remove M = Move
             "R" -> {
                 val win = remove(playerTurn)
                 if (win) return
                 validTurn = true
             }
-            else -> println("Invalid choice")
+            else -> println("Invalid choice".red())
         }
 
         if (validTurn) {
@@ -207,16 +207,17 @@ fun gamewin (player: String){
     println("$player won")
 
     println("Game Over")
+
 }
 
 fun remove (playerturn: String): Boolean {
     val index = 0
     if (squares[index] == "...") {
-        println("There is nothing on square 1 to remove")
+        println("There is nothing on square 1 to remove".red())
         return false
     }
 
-    if (squares[index] == "◯") {
+    if (squares[index] == "◯") {            //If remove black dot. End the game and show the winner
         squares[index] = "..."
         gamewin(playerturn)
         return true
@@ -233,7 +234,7 @@ fun move (){
     val to = readlnOrNull()?.toIntOrNull()
 
     if (from == null || to == null) {
-        println("Invalid square")
+        println("Invalid square".red())
         return
     }
 
@@ -241,17 +242,19 @@ fun move (){
     val end = to - 1
 
     if (start !in 0..15 || end !in 0..15) {
-        println("Invalid squares")
+        println("Invalid squares".red())
         return
     }
 
+
+
     if (squares[start] == "...") {
-        println("Nothing there")
+        println("Nothing there".red())
         return
     }
 
     if (squares[end] != "...") {
-        println("Space not empty")
+        println("Space not empty".red())
         return
     }
 
@@ -260,7 +263,7 @@ fun move (){
     var i = start + step
     while (i != end) {
         if (squares[i] != "...") {
-            println("Cannot jump over pieces")
+            println("Cannot jump over pieces".red())
             return
         }
         i += step

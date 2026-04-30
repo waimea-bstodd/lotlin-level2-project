@@ -10,9 +10,9 @@ Terminology:
 
 ---
 
-## Example Test Name
+## Can't jump over other pieces
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+If the player tried to jump over other pieces the game should reject what the player is doing and give the player an error
 
 ### Test Data To Use
 

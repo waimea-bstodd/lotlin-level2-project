@@ -241,7 +241,7 @@ fun move (){
     val start = from - 1
     val end = to - 1
 
-    if (start !in 0..15 || end !in 0..15) {
+    if (start !in 0..15 || end !in 0..15) {     //If player puts in a number that isn't between 1-16 it will say "Invalid squares"
         println("Invalid squares".red())
         return
     }

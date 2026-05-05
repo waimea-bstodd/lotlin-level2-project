@@ -16,26 +16,49 @@ If the player tried to jump over other pieces the game should reject what the pl
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+I will try to move a piece that would jump over a different piece
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. 
+It should say be invalid because you shouldn't be able to jump over other pieces 
 
 ---
 
-## Example Test Name
+## Player's can put names in
 
-Example test description. Example test description. Example test description. Example test description. Example test description. Example test description.
+Test if player's can put in their names. The game needs the players names so the game can say who's turn it is and also say who won the game.
 
 ### Test Data To Use
 
-Details of test data and reasons for selection. Details of test data and reasons for selection. Details of test data and reasons for selection.
+Im going to put player ones name to Ben1 and player twos name Ben2.
 
 ### Expected Test Result
 
-Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. Statement detailing what should happen. 
+It should be valid as the game should take any name
 
 ---
 
+## Player Counter Selection - BOUNDARIES
+
+I will test the boundaries of the counter input
+
+### Test Data To Use
+
+I will attempt to select counters at position 1 and position 16, the boundaries of the board
+### Expected Test Result
+The inputs should be accepted
+
+---
+
+## Ask for game instructions
+
+When the player first loads up the game it should ask if they want to know how to play Pinned
+
+### Test Data To Use
+
+Im going to load up the game and see if the game asks if I want to know how to play the game.
+### Expected Test Result
+
+
+---
 

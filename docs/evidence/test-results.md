@@ -4,7 +4,7 @@ The test results show the actual outcome of the testing, following the [Test Pla
 
 ---
 
-## Example Test Name
+## Can't jump over other pieces - INVALID
 
 If the player tried to jump over other pieces the game should reject what the player is doing and give the player an error
 
@@ -20,7 +20,7 @@ The test was invalid as the game rejected the players move as you can't jump ove
 
 ---
 
-## Example Test Name
+## Player's can put names in - VALID
 
 Test if player's can put in their names. The game needs the players names so the game can say who's turn it is and also say who won the game.
 
@@ -46,40 +46,56 @@ I will attempt to select counters at position 1 and position 16, the boundaries 
 I will do this for player 1 and player 2
 ### Test Result
 
-![example.png](screenshots/PlayerCounter   SelectionTest.gif)
+![example.png](screenshots/PlayerCounterSelectionTest.gif)
 
 The test passed - the counters in positions 1 and 16 were selected ok
 ---
 
-## Example Test Name
+## Ask for game instructions - VALID
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+When the player first loads up the game it should ask if they want to know how to play Pinned
 
 ### Test Data Used
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
+Im going to load up the game and see if the game asks if I want to know how to play the game.
 
 ### Test Result
 
-![example.png](screenshots/example.png)
+![example.png](screenshots/askHowToPlayTest.gif)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
+The game asked me if I wanted to know how to play the game so it was a valid test.
+---
+
+## Player can move a coin - VALID
+
+Test to see if the player can move a coin
+
+### Test Data Used
+
+I moved a coin
+### Test Result
+
+![example.png](screenshots/playerCanMoveCoin.gif)
+
+It worked and let me move a coin
 
 ---
 
-## Example Test Name
+## The game was fully playable
 
-Example test description. Example test description.Example test description. Example test description.Example test description. Example test description.
+
+## Game is fully playable - Gameplay
+
+Test to see if the game can be played from start to end and show stuff like a winner
 
 ### Test Data Used
 
-Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data. Details of test data.
+I played the game from the start to the end to see if it is playable
 
 ### Test Result
 
-![example.png](screenshots/example.png)
+![example.png](screenshots/Gameplay.gif)
 
-Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result. Comment on test result.
-
+The game is fully playable
 ---
 

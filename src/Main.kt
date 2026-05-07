@@ -2,14 +2,13 @@
  * =====================================================================
  * Programming Project for NCEA Level 2, Standard 91896
  * ---------------------------------------------------------------------
- * Project Name:   PROJECT NAME HERE
- * Project Author: PROJECT AUTHOR HERE
- * GitHub Repo:    GITHUB REPO URL HERE
+ * Project Name:   Pinned
+ * Project Author: Ben Todd
+ * GitHub Repo:    https://github.com/waimea-bstodd/lotlin-level2-project
  * ---------------------------------------------------------------------
  * Notes:
  * PROJECT NOTES HERE
  * =====================================================================
-Game can be played till the end. Needs more polishing and some things with clear screen needs to be fixed/improved
 
 
  */

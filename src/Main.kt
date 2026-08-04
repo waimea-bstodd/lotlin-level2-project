@@ -20,13 +20,19 @@ var p1Name: String = ""
 var p2Name: String = ""
 var game: String = ""
 
+/**
+ * clears sceen by printing lots of blank lines
+ */
 fun clearScreen() {
     for (i in 0..100) {
         println()
     }
 }
 
-fun gameName(){
+/**
+ * Shows the name of the game
+ */
+fun gameName(){ //game title art
     println()
     println(
         "                                           \n" +
@@ -42,22 +48,35 @@ fun gameName(){
     println()
 }
 
-fun main() {
+/**
+ * This is the entry point for the program
+ */
+fun main()  {
+    // Setup the game
     intro()
     GetPlayerNames()
     createCells()
     addCounters()
     showsquares()
+
+    // Get started
     game()
 }
 
-
+/**
+ * Sets up the game board with blanks
+ */
 fun createCells() {
     for (i in 1..16){
         squares.add("...")
     }
 }
 
+
+/**
+ * Adds white and black counters randomly to the board
+ * We have four white and one black - placed on empty squares
+ */
 fun addCounters() {
     while (true) {
         val white1 = (0..15).random()
@@ -96,7 +115,11 @@ fun addCounters() {
     }
 }
 
+/**
+ * Displays the game board
+ */
 fun showsquares() {
+    // Show square numbers
     for (i in 1..squares.size) {
         print("Square $i  ".padEnd(length = 11))
     }
@@ -105,6 +128,7 @@ fun showsquares() {
     print("┬──────────".repeat(squares.size-1))
     println("┐")
 
+    // Show player pieces on screen
     for (cell in squares){
         print("│ ${cell?.padEnd(8)} ")
     }
@@ -115,6 +139,10 @@ fun showsquares() {
     println("┘")
 }
 
+/**
+ *Shows the game start and asks if you want to read rules
+ * The user has to input Y to be able go to continue to the next part
+ */
 fun intro() {
 
     gameName()
@@ -131,6 +159,9 @@ fun intro() {
     howToPlay()
 
 }
+/**
+ * Asks players for their names so the game can say whos turn it is
+ */
     fun GetPlayerNames(){
         println("What is player ones name? ")
         p1Name = readln()
@@ -143,7 +174,9 @@ fun intro() {
         println()
 
 }
-
+/**
+ * prints how to play the game only if the player inputs Y in the intro function
+ */
 fun howToPlay(){
     clearScreen()
 println("Pinned \uD83D\uDCCC\n" +
@@ -168,11 +201,13 @@ println("Pinned \uD83D\uDCCC\n" +
         "Counters can slide either left or right (but still can't jump other counters)")
 }
 
-
+/**
+ * main game loop
+*/
 fun game(){
     var playerTurn = p1Name
 
-    while (true) {
+    while (true) { // Asks player if they want to move or remove the square by inputting M for move or R for remove
         clearScreen()
         showsquares()
         println("\nIt's $playerTurn's turn")
@@ -195,12 +230,16 @@ fun game(){
             else -> println("Invalid choice")
         }
 
+        // Switch players
         if (validTurn) {
             playerTurn = if (playerTurn == p1Name) p2Name else p1Name
         }
     }
 }
 
+/**
+ * Shows win screen and tells players who won the game
+*/
 fun gamewin (player: String){
     clearScreen()
     gameName()
@@ -209,6 +248,10 @@ fun gamewin (player: String){
     println("Game Over")
 }
 
+/**
+ * Removes the piece in square 1
+ * also gives a error message if there is nothing to remove
+*/
 fun remove (playerturn: String): Boolean {
     val index = 0
     if (squares[index] == "...") {
@@ -216,15 +259,20 @@ fun remove (playerturn: String): Boolean {
         return false
     }
 
-    if (squares[index] == "◯") {
+    if (squares[index] == "◯") { //if black removed from board the game end
         squares[index] = "..."
         gamewin(playerturn)
         return true
     }
-    squares[index] = "..."
+    squares[index] = "..." //If nothing in board the game keeps going
     return false
 }
 
+/**
+ * All movement code.
+ * Ask player what and where to move
+ * Check moves that are not allowed
+ */
 fun move (){
     print("Pick square to move: ")
     val from = readlnOrNull()?.toIntOrNull()
@@ -240,16 +288,17 @@ fun move (){
     val start = from - 1
     val end = to - 1
 
+    // Make sure choices are in range
     if (start !in 0..15 || end !in 0..15) {
         println("Invalid squares")
         return
     }
-
+    // Checking if there is something in the square
     if (squares[start] == "...") {
         println("Nothing there")
         return
     }
-
+    // Checking if square is empty
     if (squares[end] != "...") {
         println("Space not empty")
         return
@@ -259,7 +308,7 @@ fun move (){
 
     var i = start + step
     while (i != end) {
-        if (squares[i] != "...") {
+        if (squares[i] != "...") { //making sure players cant jump over pieces
             println("Cannot jump over pieces")
             return
         }
